@@ -28,5 +28,5 @@ Build the installers with <br>```npm run dist```
 Or test in dev with <br>```npm run start```
 
 ## Download Links
-Apple Silicon Version: [Download](https://store.brth.uk/hybes/Crypto%20Tracker-1.1.0-arm64.dmg) <br>
-Intel Version: [Download](https://store.brth.uk/hybes/Crypto%20Tracker-1.1.0.dmg)
+Apple Silicon Version: [Download](https://store.brth.uk/hybes/Crypto%20Tracker-1.1.1-arm64.dmg) <br>
+Intel Version: [Download](https://store.brth.uk/hybes/Crypto%20Tracker-1.1.1.dmg)
