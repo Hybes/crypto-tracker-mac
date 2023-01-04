@@ -40,9 +40,9 @@
 				margin: 50px auto;
 				text-align: center;
 				font-size: 20px;
-				background-color: #282828;
+				background-color: #292929;
 				border-radius: 10px;
-				box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+				transition: all 0.2s ease-out;
 			}
 
 			form#form label {
@@ -51,6 +51,7 @@
 				font-size: 18px;
 				font-weight: bold;
 				color: #f1f1f1;
+				transition: all 0.2s ease-out;
 			}
 
 			form#form input[type="text"] {
@@ -61,6 +62,7 @@
 				border: 2px solid #3c3c3c;
 				border-radius: 4px;
 				font-size: 16px;
+				transition: all 0.2s ease-out;
 			}
 
 			form#form input[type="submit"] {
@@ -74,10 +76,12 @@
 				cursor: pointer;
 				font-size: 16px;
 				font-weight: bold;
+				transition: all 0.25s ease-out;
 			}
 
 			form#form input[type="submit"]:hover {
-				background-color: #6c81ed;
+				background-color: #233aad;
+				transition: all 0.25s ease-out;
 			}
 			.link {
 				color: #6c81ed;
@@ -97,14 +101,19 @@
 			<input type="text" id="tokenName" placeholder="solana" /><br />
 			<label for="url">Fiat Currency</label><br />
 			<p>
-				Abbreviation of currency. E.G. gbp, usd, sek.
+				Abbreviation of currency in lowercase. E.G. gbp, usd, sek.
 			</p>
 			<input type="text" id="fiatCurr" placeholder="usd" /><br />
 			<label for="url">Precision</label><br />
 			<p>
-				Amount of decimals to display. E.G. 0, 3, 10.
+				Amount of decimals to display (Max 18). E.G. 0, 3, 10.
 			</p>
 			<input type="text" id="precisionDec" placeholder="3" /><br />
+			<label for="url">Label</label><br />
+			<p>
+				Label displayed before the price. E.G. BTC/USD, SOL/GBP.
+			</p>
+			<input type="text" id="labelName" placeholder="BONK" /><br />
 			<input type="submit" id="saveConfig" value="Save" />
 		</form>
 	</body>

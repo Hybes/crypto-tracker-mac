@@ -23,7 +23,7 @@ const openConfig = () => {
   if (!configWindow) {
       configWindow = new BrowserWindow({
           width: 700,
-          height: 700,
+          height: 800,
           autoHideMenuBar: true,
           title: 'Configuration',
           webPreferences: {
@@ -64,14 +64,15 @@ const updateTrayTitle = async () => {
     const FULL_URL = `https://api.coingecko.com/api/v3/simple/price?ids=${(await settings.get('tokenName'))}&vs_currencies=${(await settings.get('fiatCurr'))}&precision=${(await settings.get('precisionDec'))}`    
     const res = await axios.get(FULL_URL)
     const currentNumber = `${res.data[await settings.get('tokenName')][await settings.get('fiatCurr')]}`
+    let labelName = await settings.get('labelName')
 
   let title = null
   if (prevNumber != null && currentNumber > prevNumber) {
-    title = `${currentNumber} \u2191`
+    title = `${labelName} ${currentNumber} \u2191`
   } else if (currentNumber < prevNumber) {
-    title = `${currentNumber} \u2193`
+    title = `${labelName} ${currentNumber} \u2193`
   } else {
-    title = `${currentNumber}`
+    title = `${labelName} ${currentNumber}`
   }
 
   tray.setTitle(title)
@@ -131,6 +132,6 @@ app.whenReady().then(async () => {
   updateTrayTitle()
 
   // Update the tray title every 5 seconds
-  setInterval(updateTrayTitle, 5000)
+  setInterval(updateTrayTitle, 6500)
 
 });
