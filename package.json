@@ -20,7 +20,7 @@
   },
     "repository": {
       "type": "git",
-      "url": "https://github.com/hybes/crypto-tracker.git"
+      "url": "https://github.com/hybes/crypto-tracker-mac.git"
     },
   "dependencies": {
     "axios": "^1.2.2",
