@@ -7,6 +7,7 @@ const axios = require('axios')
 let tray = null
 let isQuiting = false
 let configWindow = null
+let prevNumber = null
 
 const loadConfig = async () => {
   return await settings.get()
@@ -22,7 +23,7 @@ const openConfig = () => {
   if (!configWindow) {
       configWindow = new BrowserWindow({
           width: 700,
-          height: 340,
+          height: 700,
           autoHideMenuBar: true,
           title: 'Configuration',
           webPreferences: {
@@ -52,6 +53,7 @@ const openConfig = () => {
 const exitApp = () => {
   app.quit()
 }
+
 const updateTrayTitle = async () => {
   try {
     const options = {
@@ -59,15 +61,30 @@ const updateTrayTitle = async () => {
         'accept': 'application/json'
       }
     }
-    const FULL_URL = `https://public-api.birdeye.so/public/price?address=${(await settings.get('tokenAddr'))}`    
+    const FULL_URL = `https://api.coingecko.com/api/v3/simple/price?ids=${(await settings.get('tokenName'))}&vs_currencies=${(await settings.get('fiatCurr'))}&precision=${(await settings.get('precisionDec'))}`    
     const res = await axios.get(FULL_URL)
-    tray.setTitle(`${res.data.data.value}`)
+    const currentNumber = `${res.data[await settings.get('tokenName')][await settings.get('fiatCurr')]}`
+
+  let title = null
+  if (prevNumber != null && currentNumber > prevNumber) {
+    title = `${currentNumber} \u2191`
+  } else if (currentNumber < prevNumber) {
+    title = `${currentNumber} \u2193`
+  } else {
+    title = `${currentNumber}`
+  }
+
+  tray.setTitle(title)
+  prevNumber = currentNumber
+    // tray.setTitle(`${res.data[await settings.get('tokenName')][await settings.get('fiatCurr')]}`)
   } catch (error) {
     console.error(error)
-    tray.setTitle('SOL Crypto Tracker')
+    tray.setTitle('Crypto Tracker')
   }
 }
 app.whenReady().then(async () => {
+
+  openConfig()
 
   app.on('before-quit', () => {
       isQuiting = true
@@ -77,7 +94,7 @@ app.whenReady().then(async () => {
   ipcMain.handle('config:load', loadConfig)
   ipcMain.handle('config:exit', exitConfig)
 
-  app.setAppUserModelId('SOL Crypto Tracker')
+  app.setAppUserModelId('Crypto Tracker')
 
   const contextMenu = Menu.buildFromTemplate([
       {
@@ -86,7 +103,7 @@ app.whenReady().then(async () => {
           click: openConfig
       },
       {
-          label: 'Exit',
+          label: 'Quit',
           type: 'normal',
           click: exitApp
       }
@@ -98,22 +115,22 @@ app.whenReady().then(async () => {
       icon = nativeImage.createFromPath('assets/trayMacTemplate.png')
       tray = new Tray(icon)
       app.dock.hide()
-      tray.setTitle('SOL Crypto Tracker')
+      tray.setTitle('Crypto Tracker')
   }
   else {
       icon = nativeImage.createFromPath('assets/trayWin.png')
       tray = new Tray(icon)
-      tray.setTitle('SOL Crypto Tracker')
+      tray.setTitle('Crypto Tracker')
   }
 
   tray.setContextMenu(contextMenu)
-  tray.setToolTip('SOL Crypto Tracker')  
-  tray.setTitle('SOL Crypto Tracker')
+  tray.setToolTip('Crypto Tracker')  
+  tray.setTitle('Crypto Tracker')
 
   // Set the initial tray title
   updateTrayTitle()
 
-  // Update the tray title every X seconds
+  // Update the tray title every 5 seconds
   setInterval(updateTrayTitle, 5000)
 
 });

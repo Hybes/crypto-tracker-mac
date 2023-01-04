@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>SOL Crypto Tracker</title>
+		<title>Crypto Tracker</title>
 		<style>
 			@font-face {
 				font-family: "Hubot Sans";
-				src: url("../assets/Hubot-Sans.woff2") format("woff2 supports variations"),
+				src: url("../assets/Hubot-Sans.woff2")
+						format("woff2 supports variations"),
 					url("../assets/Hubot-Sans.woff2") format("woff2-variations");
 				font-weight: 200 900;
 				font-stretch: 75% 125%;
@@ -46,7 +47,7 @@
 
 			form#form label {
 				display: block;
-				margin: 20px 20px 20px 20px;
+				margin: 10px -16px 0px 0px;
 				font-size: 18px;
 				font-weight: bold;
 				color: #f1f1f1;
@@ -78,14 +79,32 @@
 			form#form input[type="submit"]:hover {
 				background-color: #6c81ed;
 			}
+			.link {
+				color: #6c81ed;
+			}
+			p {
+				font-size: 13px;
+				margin-top: -14px;
+			}
 		</style>
 	</head>
 	<body>
 		<form id="form" name="config">
-			<!-- <label for="url">Refresh Rate (Don't go lower than 2.5 seconds to avoid rate limiting)</label><br />
-			<input type="text" id="checkRate"/><br /> -->
-			<label for="url">Token Address</label><br />
-			<input type="text" id="tokenAddr" /><br />
+			<label for="url">Token Name</label><br />
+			<p>
+				Name of token in lowercase. E.G. bitcoin, solana, bonk
+			</p>
+			<input type="text" id="tokenName" placeholder="solana" /><br />
+			<label for="url">Fiat Currency</label><br />
+			<p>
+				Abbreviation of currency. E.G. gbp, usd, sek.
+			</p>
+			<input type="text" id="fiatCurr" placeholder="usd" /><br />
+			<label for="url">Precision</label><br />
+			<p>
+				Amount of decimals to display. E.G. 0, 3, 10.
+			</p>
+			<input type="text" id="precisionDec" placeholder="3" /><br />
 			<input type="submit" id="saveConfig" value="Save" />
 		</form>
 	</body>

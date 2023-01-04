@@ -1,7 +1,7 @@
 {
-  "name": "sol-crypto-tracker",
-  "productName": "SOL Crypto Tracker",
-  "version": "1.0.2",
+  "name": "cnnct-crypto-tracker",
+  "productName": "Crypto Tracker",
+  "version": "1.1.0",
   "description": "An app to allow users to keep track of a Birdeye.so token frequently.",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
-  "author": "Ben Hybert",
+  "author": "Connect Dorset",
   "license": "ISC",
   "devDependencies": {
     "electron": "^22.0.0",
@@ -24,7 +24,7 @@
   },
   "build": {
     "appId": "cnnct.crypto-tracker",
-    "productName": "SOL Crypto Tracker",
+    "productName": "Crypto Tracker",
     "mac": {
       "icon": "./build/macIcon.icns",
       "category": "cnnct.crypto-tracker",
