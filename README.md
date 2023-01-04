@@ -26,3 +26,7 @@ If you wanna build it yourself, you can clone the repo: <br>
 Fetch the node packages with <br>```npm i```
 Build the installers with <br>```npm run dist```
 Or test in dev with <br>```npm run start```
+
+## Download Links
+Apple Silicon: [Download](https://store.brth.uk/hybes/SOL%20Crypto%20Tracker-1.0.2-arm64.dmg) <br>
+Intel: [Download](https://store.brth.uk/hybes/SOL%20Crypto%20Tracker-1.0.2.dmg)
