@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>Crypto Tracker</title>
+		<title>Crypto Tracker or Mac</title>
+		<link rel="stylesheet" href="../output.css" />
 		<style>
 			@font-face {
 				font-family: "Hubot Sans";
@@ -32,90 +33,69 @@
 				overflow-y: scroll; /* has to be scroll, not auto */
 				-webkit-overflow-scrolling: touch;
 			}
-			html {
-				font-family: "Hubot Sans";
-			}
-			form#form {
-				width: 620px;
-				margin: 50px auto;
-				text-align: center;
-				font-size: 20px;
-				background-color: #101010;
-				border-radius: 10px;
-				transition: all 0.2s ease-out;
-			}
-
-			form#form label {
-				display: block;
-				margin: 10px -16px 0px 0px;
-				font-size: 18px;
-				font-weight: bold;
-				color: #f1f1f1;
-				transition: all 0.2s ease-out;
-			}
-
-			form#form input[type="text"] {
-				width: 80%;
-				padding: 12px 20px;
-				margin: 8px 0;
-				box-sizing: border-box;
-				border: 2px solid #3c3c3c;
-				border-radius: 4px;
-				font-size: 16px;
-				transition: all 0.2s ease-out;
-			}
-
-			form#form input[type="submit"] {
-				width: 50%;
-				background-color: #4c8bca;
-				color: #ffffff;
-				padding: 14px 20px;
-				margin: 8px 0;
-				border: none;
-				border-radius: 4px;
-				cursor: pointer;
-				font-size: 16px;
-				font-weight: bold;
-				transition: all 0.25s ease-out;
-			}
-
-			form#form input[type="submit"]:hover {
-				background-color: #3c74ad;
-				transition: all 0.25s ease-out;
-			}
-			.link {
-				color: #6c81ed;
-			}
-			p {
-				font-size: 13px;
-				margin-top: -14px;
-			}
 		</style>
 	</head>
 	<body>
-		<form id="form" name="config">
-			<label for="url">Token Name</label><br />
-			<p>
-				Name of token in lowercase. E.G. bitcoin, solana, bonk
-			</p>
-			<input type="text" id="tokenName" placeholder="solana" /><br />
-			<label for="url">Fiat Currency</label><br />
-			<p>
-				Abbreviation of currency in lowercase. E.G. gbp, usd, sek.
-			</p>
-			<input type="text" id="fiatCurr" placeholder="usd" /><br />
-			<label for="url">Precision</label><br />
-			<p>
-				Amount of decimals to display (Max 18). E.G. 0, 3, 10.
-			</p>
-			<input type="text" id="precisionDec" placeholder="3" /><br />
-			<label for="url">Label</label><br />
-			<p>
-				Label displayed before the price. E.G. BTC/USD, SOL/GBP.
-			</p>
-			<input type="text" id="labelName" placeholder="BONK" /><br />
-			<input type="submit" id="saveConfig" value="Save" />
-		</form>
+		<h1 class="font-semibold text-xl text-center mt-4">Settings for tracking</h1>
+		<div class="w-full h-full">
+			<form id="form" name="config" class="my-4 flex flex-col justify-center items-center">
+				<div class="flex flex-col gap-2 p-2 w-[500px] justify-center items-center border-b border-b-white/30">
+					<div class="flex gap-4 items-center">
+						<label class="w-[150px]" for="url">Token Name:</label>
+						<input type="text" class="px-4 py-2 w-[200px] rounded-full placeholder:text-stone-500" id="tokenName" placeholder="solana" />
+					</div>
+					<p class="text-sm text-white/40 mb-2">
+						Name of token in lowercase. E.G. bitcoin, solana, bonk
+					</p>
+				</div>
+				<div class="flex flex-col gap-4 p-2 w-[500px] justify-center items-center border-b border-b-white/30">
+					<div class="flex gap-4 items-center">
+						<label class="w-[150px]" for="url">Fiat Currency:</label>
+						<input type="text" class="px-4 py-2 w-[200px] rounded-full placeholder:text-stone-500" id="fiatCurr" placeholder="usd" />
+					</div>
+					<p class="text-sm text-white/40 mb-2">
+						Abbreviation of currency in lowercase. E.G. gbp, usd, sek.
+					</p>
+				</div>
+				<div class="flex flex-col gap-4 p-2 w-[500px] justify-center items-center border-b border-b-white/30">
+					<div class="flex gap-4 items-center">
+						<label class="w-[150px]" for="url">Precision:</label>
+						<input type="text" class="px-4 py-2 w-[200px] rounded-full placeholder:text-stone-500" id="precisionDec" placeholder="6" />
+					</div>
+					<p class="text-sm text-white/40 mb-2">
+						Amount of decimals to fetch (Max 18). E.G. 0, 3, 10.
+					</p>
+				</div>
+				<div class="flex flex-col gap-4 p-2 w-[500px] justify-center items-center border-b border-b-white/30">
+					<div class="flex gap-4 items-center">
+						<label class="w-[150px]" for="url">Amount:</label>
+						<input type="text" class="px-4 py-2 w-[200px] rounded-full placeholder:text-stone-500" id="valueAmount" placeholder="123.32" />
+					</div>
+					<p class="text-sm text-white/40 mb-2">
+						Value or multiplier used for amount held or other multiplier.
+					</p>
+				</div>
+				<div class="flex flex-col gap-4 p-2 w-[500px] justify-center items-center border-b border-b-white/30">
+					<div class="flex gap-4 items-center">
+						<label class="w-[150px]" for="url">Rounding:</label>
+						<input type="text" class="px-4 py-2 w-[200px] rounded-full placeholder:text-stone-500" id="afterCalcDec" placeholder="2" />
+					</div>
+					<p class="text-sm text-white/40 mb-2">
+						Amount of decimals to show after multiplication.
+					</p>
+				</div>
+				<div class="flex flex-col gap-4 p-2 w-[500px] justify-center items-center">
+					<div class="flex gap-4 items-center">
+						<label class="w-[150px]" for="url">Label:</label>
+						<input type="text" class="px-4 py-2 w-[200px] rounded-full placeholder:text-stone-500" id="labelName" placeholder="BONK" />
+					</div>
+					<p class="text-sm text-white/40 mb-2">
+						Label displayed before the price. E.G. BTC/USD, SOL/GBP.
+					</p>
+				</div>
+				<input class="bg-blue-500 hover:bg-blue-600 w-[150px] py-2 rounded-full cursor-pointer" type="submit" id="saveConfig" value="Save" />
+			</form>
+		</div>
 	</body>
 	<script src="../scripts/config.renderer.js"></script>
 </html>

@@ -22,8 +22,8 @@ const exitConfig = async () => {
 const openConfig = () => {
   if (!configWindow) {
       configWindow = new BrowserWindow({
-          width: 700,
-          height: 800,
+          width: 540,
+          height: 760,
           autoHideMenuBar: true,
           title: 'Configuration',
           webPreferences: {
@@ -32,7 +32,7 @@ const openConfig = () => {
           },
           icon: nativeImage.createFromPath('assets/trayWin.png')
       })
-      
+
       configWindow.on('close', (event) => {
           if (!isQuiting) {
               event.preventDefault()
@@ -41,10 +41,10 @@ const openConfig = () => {
       })
 
       configWindow.loadFile('views/config.html')
-      
-      // globalShortcut.register('CmdOrCtrl+D', () =>
-      //     configWindow.webContents.openDevTools()
-      // )
+
+      globalShortcut.register('CmdOrCtrl+D', () =>
+          configWindow.webContents.openDevTools()
+      )
   }
   else {
       configWindow.show()
@@ -61,23 +61,38 @@ const updateTrayTitle = async () => {
         'accept': 'application/json'
       }
     }
-    const FULL_URL = `https://api.coingecko.com/api/v3/simple/price?ids=${(await settings.get('tokenName'))}&vs_currencies=${(await settings.get('fiatCurr'))}&precision=${(await settings.get('precisionDec'))}`    
+    const FULL_URL = `https://api.coingecko.com/api/v3/simple/price?ids=${(await settings.get('tokenName'))}&vs_currencies=${(await settings.get('fiatCurr'))}&precision=${(await settings.get('precisionDec'))}`
     const res = await axios.get(FULL_URL)
     const currentNumber = `${res.data[await settings.get('tokenName')][await settings.get('fiatCurr')]}`
+    const multiplier = await settings.get('valueAmount')
     let labelName = await settings.get('labelName')
+    const rounded = await settings.get('afterCalcDec') || await settings.get('precisionDec')
 
-  let title = null
-  if (prevNumber != null && currentNumber > prevNumber) {
-    title = `${labelName} ${currentNumber} \u2191`
-  } else if (currentNumber < prevNumber) {
-    title = `${labelName} ${currentNumber} \u2193`
-  } else {
-    title = `${labelName} ${currentNumber}`
-  }
+    console.log(rounded)
+
+    let title = null
+    if (prevNumber != null && currentNumber > prevNumber) {
+      if (multiplier != null) {
+        title = `${labelName} ${(currentNumber * multiplier).toFixed(rounded)} \u2191`
+      } else {
+        title = `${labelName} ${currentNumber} \u2191`
+      }
+    } else if (currentNumber < prevNumber) {
+      if (multiplier != null) {
+        title = `${labelName} ${(currentNumber * multiplier).toFixed(rounded)} \u2193`
+      } else {
+        title = `${labelName} ${currentNumber} \u2193`
+      }
+    } else {
+      if (multiplier != null) {
+        title = `${labelName} ${(currentNumber * multiplier).toFixed(rounded)}`
+      } else {
+        title = `${labelName} ${currentNumber}`
+      }
+    }
 
   tray.setTitle(title)
   prevNumber = currentNumber
-    // tray.setTitle(`${res.data[await settings.get('tokenName')][await settings.get('fiatCurr')]}`)
   } catch (error) {
     console.error(error)
     tray.setTitle(title || 'Error Loading')
@@ -111,7 +126,7 @@ app.whenReady().then(async () => {
   ])
 
   let icon = null
-  
+
   if (process.platform === 'darwin') {
       icon = nativeImage.createFromPath('assets/trayMacTemplate.png')
       tray = new Tray(icon)
@@ -125,7 +140,7 @@ app.whenReady().then(async () => {
   }
 
   tray.setContextMenu(contextMenu)
-  tray.setToolTip('Crypto Tracker')  
+  tray.setToolTip('Crypto Tracker')
   tray.setTitle('Crypto Tracker')
 
   // Set the initial tray title

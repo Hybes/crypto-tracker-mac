@@ -1,14 +1,14 @@
 {
   "name": "cnnct-crypto-tracker",
   "productName": "Crypto Tracker",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "An app to allow users to keep track of crypto in the tray.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "start": "tailwindcss build -i styles.css -o output.css && electron .",
+    "pack": "tailwindcss build -i styles.css -o output.css && electron-builder --dir",
+    "dist": "tailwindcss build -i styles.css -o output.css && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
@@ -18,13 +18,17 @@
     "electron": "^22.0.0",
     "electron-builder": "^23.6.0"
   },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/hybes/crypto-tracker-mac.git"
-    },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hybes/crypto-tracker-mac.git"
+  },
   "dependencies": {
+    "@sentry/electron": "^4.14.0",
+    "autoprefixer": "^10.4.16",
     "axios": "^1.2.2",
-    "electron-settings": "^4.0.2"
+    "electron-settings": "^4.0.2",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
   },
   "build": {
     "appId": "cnnct.crypto-tracker",
