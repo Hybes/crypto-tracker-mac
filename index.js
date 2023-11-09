@@ -80,7 +80,7 @@ const updateTrayTitle = async () => {
     // tray.setTitle(`${res.data[await settings.get('tokenName')][await settings.get('fiatCurr')]}`)
   } catch (error) {
     console.error(error)
-    tray.setTitle('Crypto Tracker')
+    tray.setTitle(title || 'Error Loading')
   }
 }
 app.whenReady().then(async () => {
@@ -131,7 +131,7 @@ app.whenReady().then(async () => {
   // Set the initial tray title
   updateTrayTitle()
 
-  // Update the tray title every 5 seconds
-  setInterval(updateTrayTitle, 6500)
+  // Update the tray title every 5.1 seconds
+  setInterval(updateTrayTitle, 5100)
 
 });
