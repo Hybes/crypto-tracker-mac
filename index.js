@@ -3,6 +3,13 @@ const { app, Tray, Menu, BrowserWindow, nativeImage, globalShortcut, ipcMain} = 
 const settings = require('electron-settings')
 const path = require('path')
 const axios = require('axios')
+const Sentry = require('@sentry/electron')
+
+if (process.env.NODE_ENV !== 'development') {
+  Sentry.init({
+      dsn: 'https://cafe8add82bc452cae5a17bcd0939493@error.brth.uk/4',
+  });
+};
 
 let tray = null
 let isQuiting = false
@@ -94,6 +101,7 @@ const updateTrayTitle = async () => {
   tray.setTitle(title)
   prevNumber = currentNumber
   } catch (error) {
+    Sentry.captureException(error)
     console.error(error)
     tray.setTitle(title || 'Error Loading')
   }
